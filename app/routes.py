@@ -82,7 +82,7 @@ def register():
 @app.before_request # executed just before any view function
 def before_request():
     if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow().strftime('%m/%d/%Y %I:%M:%S %p')
+        current_user.last_seen = datetime.utcnow() # .strftime('%m/%d/%Y %I:%M:%S %p')
         # db.session.add()
         db.session.commit()
 
@@ -175,4 +175,4 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form, user=user) # Don't need user=user, since user isn't in template !
 
-    # how to set password criteria
+    # set password criteria via validators

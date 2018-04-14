@@ -22,7 +22,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic') # u.posts, p.author(s)
     about_me = db.Column(db.String(140))
-    last_seen = db.Column(db.String(60)) # default=datetime.utcnow
+    # last_seen = db.Column(db.String(60)) # default=datetime.utcnow
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     followed = db.relationship('User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id), # LEFT # why isn't it just followers.follower_id ?
         secondaryjoin=(followers.c.followed_id == id), # RIGHT
