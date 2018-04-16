@@ -54,6 +54,7 @@
 {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
+    {{ moment.lang(g.locale) }}
 {% endblock %}
 
 <!-- user.is_authenticated == NOT user.is_anonymous -->

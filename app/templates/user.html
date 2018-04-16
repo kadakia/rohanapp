@@ -11,7 +11,8 @@
                 {% if user.last_seen %}
                 <p>Last seen on: {{ moment(user.last_seen).format('LLLL') }}</p> <!-- user.last_seen is datetime object -->
                 {% endif %}
-                <p>{{ user.username }} is following {{ user.followed.count() }}, and is being followed by {{ user.followers.count() }}.</p>
+                <p>Following: {{ user.followed.count() }}</p>
+                <p>Followed by: {{ user.followers.count() }}</p>
                 {% if current_user == user %} <!-- These links can lie just beneath table -->
                 <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
                 {% elif not current_user.is_following(user) %}
