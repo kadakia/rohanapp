@@ -1,12 +1,13 @@
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request, g, jsonify
+from flask_login import current_user, login_user, logout_user, login_required # current_app
+from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Post
-from flask_login import current_user, login_user, logout_user, login_required # current_app
+from app.translate import translate
+from app.email import send_password_reset_email
 from werkzeug.urls import url_parse
 from datetime import datetime
-from app.email import send_password_reset_email
-from flask_babel import _, get_locale
 from guess_language import guess_language
 
 # VIEW functions
@@ -181,4 +182,10 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form, user=user) # Don't need user=user, since user isn't in template !
 
-    # set password criteria via validators
+@app.route('/translate', methods=['POST']) # no form to GET
+@login_required
+def translate_text():
+    return jsonify({'text': translate(request.form['text'], request.form['source_language'], request.form['dest_language'])}) # not request.args.form
+
+# set password criteria via validators
+# functionality for deleting posts

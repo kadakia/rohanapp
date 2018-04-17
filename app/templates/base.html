@@ -55,6 +55,20 @@
     {{ super() }}
     {{ moment.include_moment() }}
     {{ moment.lang(g.locale) }}
+    <script>
+        function translate(sourceElem, destElem, sourceLang, destLang) {
+            $(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
+            $.post('/translate', {
+                text: $(sourceElem).text(), // javascript selector
+                source_language: sourceLang,
+                dest_language: destLang
+            }).done(function(response) { // javascript callbacks
+                $(destElem).text(response['text'])
+            }).fail(function() {
+                $(destElem).text("Error: Could not contact server.");
+            });
+        }
+    </script>
 {% endblock %}
 
 <!-- user.is_authenticated == NOT user.is_anonymous -->
