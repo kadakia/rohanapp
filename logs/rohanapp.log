@@ -84,3 +84,8 @@ jinja2.exceptions.UndefinedError: 'None' has no attribute 'avatar'
 2018-04-16 21:11:05,551 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
 2018-04-16 21:14:29,714 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
 2018-04-16 21:16:46,579 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-17 00:26:56,836 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-17 19:57:47,381 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-19 14:47:17,635 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]
+2018-04-19 14:51:28,905 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]
+2018-04-19 15:19:08,243 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]

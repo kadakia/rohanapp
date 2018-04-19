@@ -1,4 +1,5 @@
-from app import app, db, login
+from flask import current_app
+from app import db, login
 from datetime import datetime
 from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -65,12 +66,12 @@ class User(UserMixin, db.Model):
     def get_reset_password_token(self, expires_in=600): # expires_in units are seconds
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
-            app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8') # since jwt.encode returns a bytes expression
+            current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8') # since jwt.encode returns a bytes expression
 
     @staticmethod # probably since this doesn't reference self
     def verify_reset_password_token(token):
         try: # there is no conditional, ALWAYS try this
-            id = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+            id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
             # invertible, unlike password hash
             # can multiple algorithms be used together?
         except: # if validation fails

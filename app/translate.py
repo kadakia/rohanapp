@@ -1,12 +1,12 @@
+from flask import current_app
 import json
 import requests
 # from flask_babel import _
-from app import app
 
 def translate(text, source_language, dest_language):
-    if 'MS_TRANSLATOR_KEY' not in app.config or not app.config['MS_TRANSLATOR_KEY']: # what's the difference ?!
+    if 'MS_TRANSLATOR_KEY' not in current_app.config or not current_app.config['MS_TRANSLATOR_KEY']: # what's the difference ?!
         return 'Error: the translation service is not configured.'
-    auth = {'Ocp-Apim-Subscription-Key': app.config['MS_TRANSLATOR_KEY']} # what is Ocp ?
+    auth = {'Ocp-Apim-Subscription-Key': current_app.config['MS_TRANSLATOR_KEY']} # what is Ocp ?
     r = requests.get('https://api.microsofttranslator.com/v2/Ajax.svc/Translate?text={}&from={}&to={}'.format(
         text, source_language, dest_language), headers=auth)
     if r.status_code != 200:

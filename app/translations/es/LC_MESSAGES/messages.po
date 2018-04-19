@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/routes.py:26
+#: app/main/routes.py:27
 msgid "Your post is now live!"
 msgstr "Tu publicación ahora está en vivo!"
 
