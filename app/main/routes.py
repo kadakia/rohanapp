@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, g, jsonify
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from app import db
-from app.main.forms import EditProfileForm, PostForm
+from app.main.forms import EditProfileForm, PostForm, SearchForm
 from app.models import User, Post
 from app.translate import translate
 from datetime import datetime
@@ -55,7 +55,28 @@ def before_request():
         current_user.last_seen = datetime.utcnow() # .strftime('%m/%d/%Y %I:%M:%S %p')
         # db.session.add()
         db.session.commit()
-        g.locale = str(get_locale())
+        g.search_form = SearchForm()
+        # under .is_authenticated, so search form appears iff logged in
+        # need this form object to persist until it can be rendered at the end of the request
+        # don't need to include 'form = g.search_form' in all render_template calls
+    g.locale = str(get_locale())
+
+@bp.route('/search')
+@login_required
+def search():
+    if not g.search_form.validate():
+        return redirect(url_for('main.explore')) # shouldn't empty search just do nothing ?
+    # never: if g.search_form.validate():
+    page = request.args.get('page', 1, type=int)
+    posts, total = Post.search(g.search_form.q.data, page, current_app.config['POSTS_PER_PAGE'])
+    next_url = url_for('main.search', q=g.search_form.q.data, page=page + 1) \
+        if total > page * current_app.config['POSTS_PER_PAGE'] else None # does order of q= and page= matter?
+    prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) \
+        if page > 1 else None # can't use .next_num, .has_next, .prev_num, .has_prev !
+    return render_template('search.html', title='Search', total=total, posts=posts, # why not posts.items ?!
+                           next_url=next_url, prev_url=prev_url)
+
+# how to enable searching for exact phrases
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
