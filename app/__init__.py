@@ -8,7 +8,7 @@ from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_babel import Babel
 import logging
-from logging.handlers import SMTPHandler, RotatingFileHandler, StreamHandler
+from logging.handlers import SMTPHandler, RotatingFileHandler # StreamHandler
 import os
 from elasticsearch import Elasticsearch
 
