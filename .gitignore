@@ -1,0 +1,9 @@
+# Packages
+__pycache__
+
+# Translations
+*.mo
+
+venv
+app.db
+rohanapp.log*
