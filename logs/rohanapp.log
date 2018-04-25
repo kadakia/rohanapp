@@ -114,3 +114,4 @@ jinja2.exceptions.TemplateSyntaxError: invalid syntax for function call expressi
 2018-04-23 17:20:54,227 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
 2018-04-23 17:29:34,566 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
 2018-04-23 18:02:25,391 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
+2018-04-24 21:39:02,825 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:78]
