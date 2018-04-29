@@ -1,5 +1,5 @@
 {% extends 'bootstrap/base.html' %}
-<!-- Want RohanApp to be responsive!! -->
+<!-- RohanApp is responsive!! -->
 
 {% block title %}
     {% if title %}{{ title }}{% else %}Rohan's Flask App{% endif %}
@@ -35,6 +35,15 @@
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
+                    <li>
+                        <a href="{{ url_for('main.messages') }}">
+                            Messages
+                            {% set new_messages = current_user.new_messages() %} <!-- setting variable in html -->
+                            {% if new_messages %}
+                            <span class="badge">{{ new_messages }}</span>
+                            {% endif %}    
+                        </a>
+                    </li>
                     <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
@@ -67,7 +76,7 @@
         function translate(sourceElem, destElem, sourceLang, destLang) {
             $(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
             $.post('/translate', {
-                text: $(sourceElem).text(), // javascript selector
+                text: $(sourceElem).text(), // javascript id selector
                 source_language: sourceLang,
                 dest_language: destLang
             }).done(function(response) { // javascript callbacks
@@ -100,7 +109,7 @@
                                     flask_moment_render_all();
                                 }
                             );
-                    }, 750);
+                    }, 500);
                 },
                 function(event) {
                     // mouse-out event handler
