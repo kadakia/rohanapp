@@ -125,6 +125,11 @@ class User(UserMixin, db.Model):
         return Message.query.filter_by(recipient=self).filter(
             Message.timestamp > last_read_time).count()
 
+    def all_messages_with_other(self, other):
+        received = Message.query.filter_by(author=other).filter_by(recipient=self)
+        sent = Message.query.filter_by(author=self).filter_by(recipient=other)
+        return received.union(sent).order_by(Message.timestamp.desc())
+
 class Post(SearchableMixin, db.Model):
     __searchable__ = ['body']
     id = db.Column(db.Integer, primary_key=True)

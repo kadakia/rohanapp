@@ -45,5 +45,5 @@ class SearchForm(FlaskForm):
         super(SearchForm, self).__init__(*args, **kwargs)
 
 class MessageForm(FlaskForm):
-    message = TextAreaField('Message', validators=[DataRequired(), Length(min=1, max=140)])
+    message = TextAreaField('Say something privately:', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
