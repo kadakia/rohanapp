@@ -7,6 +7,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hashlib import md5
 import jwt
+import json
+
 
 class SearchableMixin(object):
     @classmethod # as opposed to instance method
@@ -66,11 +68,12 @@ class User(UserMixin, db.Model):
         primaryjoin=(followers.c.follower_id == id), # LEFT # why isn't it just followers.follower_id ?
         secondaryjoin=(followers.c.followed_id == id), # RIGHT
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
-    messages_sent = db.relationship('Message', foreign_keys='Message.sender_id',
+    messages_sent = db.relationship('Message', foreign_keys='Message.sender_id', # need to specify which foreign key
                                     backref='author', lazy='dynamic') # what else could lazy= be?
     messages_received = db.relationship('Message', foreign_keys='Message.recipient_id',
                                         backref='recipient', lazy='dynamic')
-    last_message_read_time = db.Column(db.DateTime) # why no default value?
+    last_message_read_time = db.Column(db.DateTime)
+    notifications = db.relationship('Notification', backref='user', lazy='dynamic')
 
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest() # .encode('utf-8') converts email string to bytes
@@ -121,9 +124,20 @@ class User(UserMixin, db.Model):
         return User.query.get(id)
 
     def new_messages(self):
+        # last_read_time = self.last_message_read_time or datetime(1900, 1, 1) # latter iff former is empty
+        # return Message.query.filter_by(recipient=self).filter(
+        #    Message.timestamp > last_read_time).count()
+        new_messages = 0
+        for user in User.query.all():
+            new_messages += self.new_messages_from_other(user)
+        return new_messages
+
+    def new_messages_from_other(self, other):
         last_read_time = self.last_message_read_time or datetime(1900, 1, 1) # latter iff former is empty
-        return Message.query.filter_by(recipient=self).filter(
+        return Message.query.filter_by(recipient=self).filter_by(author=other).filter(
             Message.timestamp > last_read_time).count()
+
+    # def last_read_time_other(self, other):
 
     def all_messages_with_other(self, other):
         received = Message.query.filter_by(author=other).filter_by(recipient=self)
@@ -132,6 +146,12 @@ class User(UserMixin, db.Model):
 
     def messages_from_other(self, other):
         return Message.query.filter_by(author=other).filter_by(recipient=self).count()
+
+    def add_notification(self, name, data):
+        self.notifications.filter_by(name=name).delete() # not db.session.delete
+        n = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(n)
+        return n # why both add n and return n ?
 
 class Post(SearchableMixin, db.Model):
     __searchable__ = ['body']
@@ -156,6 +176,19 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<Message {}>'.format(self.body)
+
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True) # name == 'unread_message_count'
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.Float, index=True, default=time) # time() is a float, not a datetime object!
+    payload_json = db.Column(db.Text)
+
+    def get_data(self):
+        return json.loads(str(self.payload_json)) # since json.dumps returns a string, why is str() necessary?
+
+    # def __repr__(self):
+    #    return '<Notification {}>'.format(self.id)
 
 @login.user_loader
 def load_user(id):
