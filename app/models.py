@@ -130,6 +130,9 @@ class User(UserMixin, db.Model):
         sent = Message.query.filter_by(author=self).filter_by(recipient=other)
         return received.union(sent).order_by(Message.timestamp.desc())
 
+    def messages_from_other(self, other):
+        return Message.query.filter_by(author=other).filter_by(recipient=self).count()
+
 class Post(SearchableMixin, db.Model):
     __searchable__ = ['body']
     id = db.Column(db.Integer, primary_key=True)

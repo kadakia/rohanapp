@@ -34,7 +34,7 @@ def index():
     # even though page isn't referenced in the URL directly, unlike <username>
     prev_url = url_for('main.index', page=posts.prev_num) if posts.has_prev else None
     # skip directly to first posts, last posts ?!
-    return render_template('index.html', title = 'Home', posts = posts.items, form = form,
+    return render_template('index.html', title = 'RohanApp - Home', posts = posts.items, form = form,
                             next_url = next_url, prev_url = prev_url)
     # no subdirectory for "main" templates
 
@@ -178,6 +178,20 @@ def messages():
     prev_url = url_for('main.messages', page=messages.prev_num) if messages.has_prev else None
     return render_template('messages.html', messages=messages.items,
                            next_url=next_url, prev_url=prev_url, title='Messages')
+
+@bp.route('/messages/sent')
+@login_required
+def sent_messages():
+    page = request.args.get('page', 1, type=int)
+    sub = db.session.query(func.max(Message.timestamp).label("max_stamp")).filter(
+        Message.author == current_user).group_by(Message.recipient_id).subquery()
+    sent_messages = current_user.messages_sent.join(sub, and_(Message.timestamp == sub.c.max_stamp)).order_by(
+        Message.timestamp.desc()).paginate(
+            page, current_app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('main.sent_messages', page=sent_messages.next_num) if sent_messages.has_next else None
+    prev_url = url_for('main.sent_messages', page=sent_messages.prev_num) if sent_messages.has_prev else None
+    return render_template('messages_sent.html', sent_messages=sent_messages.items,
+                           next_url=next_url, prev_url=prev_url, title='Messages Sent')
 
 @bp.route('/messages/<other>', methods=['GET', 'POST'])
 @login_required

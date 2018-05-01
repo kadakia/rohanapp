@@ -1,0 +1,17 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="{{ url_for('main.user', username=message.recipient.username) }}">
+                <img src="{{ message.recipient.avatar(70) }}" />
+            </a>
+        </td>
+        <td>
+            <span>
+                <a href="{{ url_for('main.conversation', other=message.recipient.username) }}">
+                    Conversation with {{ message.recipient.username }}
+                </a>
+            </span>
+            <p>Your last message: {{ moment(message.timestamp).calendar() }}</p>
+        </td>
+    </tr>
+</table>
