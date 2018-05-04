@@ -1,118 +1,81 @@
-2018-04-21 22:51:51,870 ERROR: Exception on /index [GET] [in /Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py:1560]
+2018-05-04 18:05:57,779 ERROR: Unhandled exception [in ./app/tasks.py:65]
 Traceback (most recent call last):
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
-    return func(*args, **kwargs)
-  File "/Users/kadakia/flask_app/app/main/routes.py", line 37, in index
-    next_url = next_url, prev_url = prev_url)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 134, in render_template
-    context, ctx.app)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 116, in _render
-    rv = template.render(context)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
-    return original_render(self, *args, **kwargs)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
-    return self.environment.handle_exception(exc_info, True)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
-    reraise(exc_type, exc_value, tb)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
-    raise value.with_traceback(tb)
-  File "/Users/kadakia/flask_app/app/templates/base.html", line 29, in template
-    {{ g.search_form.q(size=20, class='form-control', <!-- 20 is the width of the search box -->
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 1005, in render
-    return concat(self.root_render_func(self.new_context(vars)))
-  File "/Users/kadakia/flask_app/app/templates/index.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
-    reraise(exc_type, exc_value, tb)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
-    raise value.with_traceback(tb)
-  File "/Users/kadakia/flask_app/app/templates/base.html", line 29, in template
-    {{ g.search_form.q(size=20, class='form-control', <!-- 20 is the width of the search box -->
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 497, in _parse
-    return Parser(self, source, name, encode_filename(filename)).parse()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 901, in parse
-    result = nodes.Template(self.subparse(), lineno=1)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 883, in subparse
-    rv = self.parse_statement()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 130, in parse_statement
-    return getattr(self, 'parse_' + self.stream.current.value)()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 268, in parse_block
-    node.body = self.parse_statements(('name:endblock',), drop_needle=True)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 165, in parse_statements
-    result = self.subparse(end_tokens)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 883, in subparse
-    rv = self.parse_statement()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 130, in parse_statement
-    return getattr(self, 'parse_' + self.stream.current.value)()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 213, in parse_if
-    'name:endif'))
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 165, in parse_statements
-    result = self.subparse(end_tokens)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 875, in subparse
-    add_data(self.parse_tuple(with_condexpr=True))
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 620, in parse_tuple
-    args.append(parse())
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 432, in parse_expression
-    return self.parse_condexpr()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 437, in parse_condexpr
-    expr1 = self.parse_or()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 450, in parse_or
-    left = self.parse_and()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 459, in parse_and
-    left = self.parse_not()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 470, in parse_not
-    return self.parse_compare()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 474, in parse_compare
-    expr = self.parse_math1()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 496, in parse_math1
-    left = self.parse_concat()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 507, in parse_concat
-    args = [self.parse_math2()]
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 517, in parse_math2
-    left = self.parse_pow()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 528, in parse_pow
-    left = self.parse_unary()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 547, in parse_unary
-    node = self.parse_postfix(node)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 676, in parse_postfix
-    node = self.parse_call(node)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 789, in parse_call
-    ensure(not kwargs)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 763, in ensure
-    token.lineno)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/parser.py", line 59, in fail
-    raise exc(msg, lineno, self.name, self.filename)
-jinja2.exceptions.TemplateSyntaxError: invalid syntax for function call expression
-2018-04-21 22:53:32,321 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-21 22:58:38,708 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-21 23:00:07,809 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-21 23:34:38,008 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-21 23:38:45,715 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-21 23:39:49,821 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-22 01:43:21,305 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-22 01:48:59,893 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-22 15:12:56,574 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-22 21:08:25,404 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-23 01:15:00,006 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-23 01:15:23,674 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
-2018-04-23 01:44:51,510 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-23 01:58:19,999 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-23 02:43:33,856 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-23 16:30:22,290 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-23 17:20:54,227 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-23 17:29:34,566 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-23 18:02:25,391 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:73]
-2018-04-24 21:39:02,825 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:78]
-2018-04-25 19:03:35,799 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:78]
+  File "./app/tasks.py", line 58, in export_posts
+    text_body=render_template('email/export_posts.txt', user=user),
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/loaders.py", line 113, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 57, in get_source
+    return self._get_source_fast(environment, template)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 85, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: email/export_posts.txt
+2018-05-04 18:08:44,017 INFO: RohanApp startup [in ./app/__init__.py:82]
+2018-05-04 18:09:19,166 ERROR: Unhandled exception [in ./app/tasks.py:65]
+Traceback (most recent call last):
+  File "./app/tasks.py", line 58, in export_posts
+    text_body=render_template('email/export_posts.txt', user=user),
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/loaders.py", line 113, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 57, in get_source
+    return self._get_source_fast(environment, template)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 85, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: email/export_posts.txt
+2018-05-04 18:13:33,423 INFO: RohanApp startup [in ./app/__init__.py:82]
+2018-05-04 18:13:48,589 ERROR: Unhandled exception [in ./app/tasks.py:65]
+Traceback (most recent call last):
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_mail.py", line 427, in send
+    connection.send(self)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_mail.py", line 192, in send
+    message.rcpt_options)
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 852, in sendmail
+    self.ehlo_or_helo_if_needed()
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 600, in ehlo_or_helo_if_needed
+    if not (200 <= self.ehlo()[0] <= 299):
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 440, in ehlo
+    self.putcmd(self.ehlo_msg, name or self.local_hostname)
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 367, in putcmd
+    self.send(str)
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 359, in send
+    raise SMTPServerDisconnected('please run connect() first')
+smtplib.SMTPServerDisconnected: please run connect() first
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./app/tasks.py", line 61, in export_posts
+    sync=True) # why are we sending this synchronously?
+  File "./app/email.py", line 19, in send_email
+    mail.send(msg)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_mail.py", line 152, in __exit__
+    self.host.quit()
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 983, in quit
+    res = self.docmd("quit")
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 420, in docmd
+    self.putcmd(cmd, args)
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 367, in putcmd
+    self.send(str)
+  File "/Users/kadakia/anaconda3/lib/python3.6/smtplib.py", line 359, in send
+    raise SMTPServerDisconnected('please run connect() first')
+smtplib.SMTPServerDisconnected: please run connect() first
+2018-05-04 18:18:00,898 INFO: RohanApp startup [in ./app/__init__.py:82]

@@ -15,6 +15,9 @@
                 <p>Followed by: {{ user.followers.count() }}</p>
                 {% if current_user == user %} <!-- These links can lie just beneath table -->
                 <p><a href="{{ url_for('main.edit_profile') }}">Edit your profile</a></p>
+                    {% if not current_user.get_task_in_progress('export_posts') %}
+                    <p><a href="{{ url_for('main.export_posts') }}">Export your posts</a></p>
+                    {% endif %}
                 {% elif not current_user.is_following(user) %}
                 <p><a href="{{ url_for('main.follow', username=user.username) }}">Follow</a></p>
                 <p><a href="{{ url_for('main.conversation', other=user.username) }}">Send private message</a></p>

@@ -1,4 +1,4 @@
-2018-04-14 13:14:08,777 ERROR: Exception on /explore [GET] [in /Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py:1560]
+2018-04-14 13:23:10,303 ERROR: Exception on /explore [GET] [in /Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py:1560]
 Traceback (most recent call last):
   File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -47,54 +47,57 @@ Traceback (most recent call last):
   File "/Users/kadakia/flask_app/app/templates/_post.html", line 5, in top-level template code
     <img src="{{ post.author.avatar(70) }}" />
 jinja2.exceptions.UndefinedError: 'None' has no attribute 'avatar'
-2018-04-14 13:14:52,810 ERROR: Exception on /explore [GET] [in /Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py:1560]
-Traceback (most recent call last):
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
-    raise value
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
-    return func(*args, **kwargs)
-  File "/Users/kadakia/flask_app/app/routes.py", line 148, in explore
-    return render_template('explore.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 134, in render_template
-    context, ctx.app)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/templating.py", line 116, in _render
-    rv = template.render(context)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
-    return original_render(self, *args, **kwargs)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
-    return self.environment.handle_exception(exc_info, True)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
-    reraise(exc_type, exc_value, tb)
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
-    raise value.with_traceback(tb)
-  File "/Users/kadakia/flask_app/app/templates/explore.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/kadakia/flask_app/app/templates/base.html", line 1, in top-level template code
-    {% extends 'bootstrap/base.html' %}
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 1, in top-level template code
-    {% block doc -%}
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 4, in block "doc"
-    {%- block html %}
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 20, in block "html"
-    {% block body -%}
-  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 23, in block "body"
-    {% block content -%}
-  File "/Users/kadakia/flask_app/app/templates/base.html", line 50, in block "content"
-    {% block app_content %}{% endblock %}
-  File "/Users/kadakia/flask_app/app/templates/explore.html", line 6, in block "app_content"
-    {% include '_post.html' %}
-  File "/Users/kadakia/flask_app/app/templates/_post.html", line 5, in top-level template code
-    <img src="{{ post.author.avatar(70) }}" />
-jinja2.exceptions.UndefinedError: 'None' has no attribute 'avatar'
-2018-04-14 13:15:47,874 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
-2018-04-14 13:23:04,643 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-14 13:24:02,307 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-14 13:26:32,254 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-14 13:28:19,677 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-14 13:32:21,015 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-14 16:19:54,291 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-14 16:22:28,682 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:51]
+2018-04-15 23:01:29,740 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-15 23:05:59,894 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-15 23:13:14,129 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:04:37,887 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:04:50,746 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:05:10,671 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:05:59,315 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:06:16,621 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:06:49,949 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:07:27,245 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:34:50,996 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 00:34:58,349 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 19:09:36,781 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:45:02,723 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:47:37,368 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:47:48,301 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:47:58,825 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:51:00,341 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:52:53,953 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:56:45,095 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 20:59:23,396 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:00:11,271 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:01:56,145 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:03:46,725 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:06:24,054 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:08:19,126 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:10:01,362 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:10:47,019 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:11:05,551 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:14:29,714 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-16 21:16:46,579 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-17 00:26:56,836 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-17 19:57:47,381 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:53]
+2018-04-19 14:47:17,635 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]
+2018-04-19 14:51:28,905 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]
+2018-04-19 15:19:08,243 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]
+2018-04-19 17:18:25,817 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:70]
+2018-04-20 22:03:19,787 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 00:37:38,075 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 00:40:39,266 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 01:02:01,087 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 01:04:16,912 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 01:07:28,957 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 01:32:58,430 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 22:39:57,243 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 22:51:19,587 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 22:51:30,138 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]
+2018-04-21 22:51:45,046 INFO: RohanApp startup [in /Users/kadakia/flask_app/app/__init__.py:73]

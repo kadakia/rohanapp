@@ -60,10 +60,22 @@
 
 {% block content %}
     <div class="container">
+        {% if current_user.is_authenticated %}
+        {% with tasks = current_user.get_tasks_in_progress() %}
+        {% if tasks %}
+            {% for task in tasks %}
+            <div class="alert alert-success" role="alert"> <!-- alert-success is green banner -->
+                {{ task.description }}
+                <span id="{{ task.id }}-progress">{{ task.get_progress() }}</span>%
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% endif %}
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
+            <div class="alert alert-info" role="alert">{{ message }}</div> <!-- alert-info is blue banner -->
             {% endfor %}
         {% endif %}
         {% endwith %}
@@ -136,7 +148,7 @@
                 }
             )
         });
-        function set_message_count(n) { // why is this function needed ?
+        function set_message_count(n) {
             $('#message_count').text(n);
             $('#message_count').css('visibility', n ? 'visible' : 'hidden');
         }
@@ -146,9 +158,17 @@
             setInterval(function() { // similar to setTimeout above 
                 $.ajax('{{ url_for('main.notifications') }}?since=' + since).done(
                     function(notifications) { // notifications is the response to the ajax request
-                        for (var i = 0; i < notifications.length; i++) { // what does i++ mean ?
-                            if (notifications[i].name == 'unread_message_count') // == is pythonic
-                                set_message_count(notifications[i].data);
+                        for (var i = 0; i < notifications.length; i++) { // i++ is increment by 1
+                            switch (notifications[i].name) {
+                                case 'unread_message_count':
+                                    set_message_count(notifications[i].data);
+                                    break;
+                                case 'task_progress':
+                                    set_task_progress(
+                                        notifications[i].data.task_id,
+                                        notifications[i].data.progress);
+                                    break; // need this break?
+                            }
                             since = notifications[i].timestamp;
                         }
                     }
@@ -156,6 +176,11 @@
             }, 10000);
         });
         {% endif %}
+        function set_task_progress(task_id, progress) {
+            $('#' + task_id + '-progress').text(progress);
+            // jQuery will do nothing if no elements are located with the given selector
+        }
+
     </script>
 {% endblock %}
 

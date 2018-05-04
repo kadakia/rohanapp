@@ -216,7 +216,7 @@ def conversation(other):
     prev_url = url_for('main.conversation', page=conversation.prev_num, other=other) if conversation.has_prev else None
     return render_template('messages_with_other.html', conversation=conversation.items,
                            next_url=next_url, prev_url=prev_url, user=user,
-                           title='Conversation with ' + user.username, form=form)
+                           title=user.username + ' - Conversation', form=form)
 
 @bp.route('/notifications')
 @login_required
@@ -229,6 +229,16 @@ def notifications():
         'data': n.get_data(),
         'timestamp': n.timestamp
     } for n in notifications])
+
+@bp.route('/export_posts')
+@login_required
+def export_posts():
+    if current_user.get_task_in_progress('export_posts'):
+        flash('An export task is currently in progress')
+    else:
+        current_user.launch_task('export_posts', 'Exporting posts...')
+        db.session.commit() # after having already added task to session
+    return redirect(url_for('main.user', username=current_user.username))
 
 # set password criteria via validators
 # functionality for deleting posts
