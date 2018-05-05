@@ -36,7 +36,7 @@ def create_app(config_class=Config):
     babel.init_app(app)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None # None during unit testing
-    app.redis = Redis.from_url(app.config['REDISTOGO_URL'])
+    app.redis = Redis.from_url(app.config['REDIS_URL'])
     app.task_queue = rq.Queue('rohanapp-tasks', connection=app.redis)
 
     from app.errors import bp as errors_bp
