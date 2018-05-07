@@ -1,7 +1,7 @@
 from flask import render_template
 from rq import get_current_job
 from app import db
-from app.models import Task, User, Post
+from app.models import Task, User, Post, Message
 from app.email import send_email
 import sys
 import time
@@ -46,7 +46,7 @@ def export_posts(user_id):
         _set_task_progress(0)
         data = []
         i = 0
-        total_posts = user.posts.count()
+        total_posts = user.posts.count() # + user.messages_sent.count()
         for post in user.posts.order_by(Post.timestamp.asc()):
             data.append({'body': post.body, 'timestamp': post.timestamp.isoformat() + 'Z'})
             time.sleep(2)

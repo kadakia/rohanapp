@@ -33,9 +33,13 @@ def index():
     next_url = url_for('main.index', page=posts.next_num) if posts.has_next else None
     # even though page isn't referenced in the URL directly, unlike <username>
     prev_url = url_for('main.index', page=posts.prev_num) if posts.has_prev else None
-    # skip directly to first posts, last posts ?!
+    if posts.total % current_app.config['POSTS_PER_PAGE'] == 0:
+        last_page = posts.total // current_app.config['POSTS_PER_PAGE']
+    else:
+        last_page = posts.total // current_app.config['POSTS_PER_PAGE'] + 1
+    last_url = url_for('main.index', page=last_page)
     return render_template('index.html', title = 'RohanApp - Home', posts = posts.items, form = form,
-                            next_url = next_url, prev_url = prev_url)
+                            next_url = next_url, prev_url = prev_url, last_url = last_url)
     # no subdirectory for "main" templates
 
 @bp.route('/user/<username>')
@@ -47,8 +51,13 @@ def user(username):
         page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('main.user', username=user.username, page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.user', username=user.username, page=posts.prev_num) if posts.has_prev else None
+    if posts.total % current_app.config['POSTS_PER_PAGE'] == 0:
+        last_page = posts.total // current_app.config['POSTS_PER_PAGE']
+    else:
+        last_page = posts.total // current_app.config['POSTS_PER_PAGE'] + 1
+    last_url = url_for('main.user', username=user.username, page=last_page)
     return render_template('user.html', title = user.username, user = user, posts = posts.items,
-                            next_url = next_url, prev_url = prev_url)
+                            next_url = next_url, prev_url = prev_url, last_url = last_url)
 
 @bp.before_app_request # executed just before any view function
 def before_request():
@@ -138,7 +147,12 @@ def explore():
         page, current_app.config['POSTS_PER_PAGE'], False) # False means return empty if out of range, not 404
     next_url = url_for('main.explore', page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.explore', page=posts.prev_num) if posts.has_prev else None
-    return render_template('explore.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
+    if posts.total % current_app.config['POSTS_PER_PAGE'] == 0:
+        last_page = posts.total // current_app.config['POSTS_PER_PAGE']
+    else:
+        last_page = posts.total // current_app.config['POSTS_PER_PAGE'] + 1
+    last_url = url_for('main.explore', page=last_page)
+    return render_template('explore.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url, last_url=last_url)
 
 @bp.route('/translate', methods=['POST']) # no form to GET
 @login_required
@@ -183,8 +197,13 @@ def messages():
             page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('main.messages', page=messages.next_num) if messages.has_next else None
     prev_url = url_for('main.messages', page=messages.prev_num) if messages.has_prev else None
+    if messages.total % current_app.config['POSTS_PER_PAGE'] == 0:
+        last_page = messages.total // current_app.config['POSTS_PER_PAGE']
+    else:
+        last_page = messages.total // current_app.config['POSTS_PER_PAGE'] + 1
+    last_url = url_for('main.messages', page=last_page)
     return render_template('messages.html', messages=messages.items,
-                           next_url=next_url, prev_url=prev_url, title='Messages')
+                           next_url=next_url, prev_url=prev_url, title='Messages', last_url=last_url)
 
 @bp.route('/messages/sent')
 @login_required
@@ -197,8 +216,13 @@ def sent_messages():
             page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('main.sent_messages', page=sent_messages.next_num) if sent_messages.has_next else None
     prev_url = url_for('main.sent_messages', page=sent_messages.prev_num) if sent_messages.has_prev else None
+    if sent_messages.total % current_app.config['POSTS_PER_PAGE'] == 0:
+        last_page = sent_messages.total // current_app.config['POSTS_PER_PAGE']
+    else:
+        last_page = sent_messages.total // current_app.config['POSTS_PER_PAGE'] + 1
+    last_url = url_for('main.sent_messages', page=last_page)
     return render_template('messages_sent.html', sent_messages=sent_messages.items,
-                           next_url=next_url, prev_url=prev_url, title='Messages Sent')
+                           next_url=next_url, prev_url=prev_url, title='Messages Sent', last_url=last_url)
 
 @bp.route('/messages/<other>', methods=['GET', 'POST'])
 @login_required
@@ -220,9 +244,14 @@ def conversation(other):
         page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('main.conversation', page=conversation.next_num, other=other) if conversation.has_next else None
     prev_url = url_for('main.conversation', page=conversation.prev_num, other=other) if conversation.has_prev else None
+    if conversation.total % current_app.config['POSTS_PER_PAGE'] == 0:
+        last_page = conversation.total // current_app.config['POSTS_PER_PAGE']
+    else:
+        last_page = conversation.total // current_app.config['POSTS_PER_PAGE'] + 1
+    last_url = url_for('main.conversation', page=last_page, other=other)
     return render_template('messages_with_other.html', conversation=conversation.items,
                            next_url=next_url, prev_url=prev_url, user=user,
-                           title=user.username + ' - Conversation', form=form)
+                           title=user.username + ' - Conversation', form=form, last_url=last_url)
 
 @bp.route('/notifications')
 @login_required
@@ -248,4 +277,3 @@ def export_posts():
 
 # set password criteria via validators
 # functionality for deleting posts
-# .last_num, .first_num ?
