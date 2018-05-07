@@ -79,3 +79,5 @@ Traceback (most recent call last):
     raise SMTPServerDisconnected('please run connect() first')
 smtplib.SMTPServerDisconnected: please run connect() first
 2018-05-04 18:18:00,898 INFO: RohanApp startup [in ./app/__init__.py:82]
+2018-05-04 20:51:45,852 INFO: RohanApp startup [in ./app/__init__.py:82]
+2018-05-06 22:26:35,966 INFO: RohanApp startup [in ./app/__init__.py:82]

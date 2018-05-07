@@ -157,7 +157,10 @@ def send_message(recipient):
     user = User.query.filter_by(username=recipient).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
-        msg = Message(author=current_user, recipient=user, body=form.message.data)
+        language = guess_language(form.message.data)
+        if language == 'UNKNOWN' or len(language) > 5:
+            language = ''
+        msg = Message(author=current_user, recipient=user, body=form.message.data, language=language)
         db.session.add(msg)
         user.add_notification('unread_message_count', user.new_messages())
         db.session.commit()
@@ -203,7 +206,10 @@ def conversation(other):
     user = User.query.filter_by(username=other).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
-        msg = Message(author=current_user, recipient=user, body=form.message.data)
+        language = guess_language(form.message.data)
+        if language == 'UNKNOWN' or len(language) > 5:
+            language = ''
+        msg = Message(author=current_user, recipient=user, body=form.message.data, language=language)
         db.session.add(msg)
         user.add_notification('unread_message_count', user.new_messages())
         db.session.commit()
