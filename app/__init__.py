@@ -15,7 +15,7 @@ from redis import Redis
 # import rq
 from rq import Worker, Queue, Connection
 import os
-from urllib import parse
+import urllib
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -44,8 +44,8 @@ def create_app(config_class=Config):
     REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost:6379')
     # conn = Redis.from_url(REDIS_URL)
 
-    parse.uses_netloc.append('redis')
-    url = parse(REDIS_URL)
+    urllib.parse.uses_netloc.append('redis')
+    url = urllib.parse(REDIS_URL)
     conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 
     app.task_queue = Queue('rohanapp-tasks', connection=conn)
