@@ -11,8 +11,11 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler # StreamHandler
 import os
 from elasticsearch import Elasticsearch
-from redis import Redis
-import rq
+# from redis import Redis
+import redis
+# import rq
+from rq import Worker, Queue, Connection
+import os
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -36,8 +39,16 @@ def create_app(config_class=Config):
     babel.init_app(app)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None # None during unit testing
-    app.redis = Redis.from_url(app.config['REDIS_URL'])
-    app.task_queue = rq.Queue('rohanapp-tasks', connection=app.redis)
+    # app.redis = Redis.from_url(app.config['REDIS_URL'])
+    listen = ['high', 'default', 'low']
+    REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost:6379')
+    conn = redis.from_url(REDIS_URL)
+    app.task_queue = Queue('rohanapp-tasks', connection=conn)
+
+    if __name__ == '__main__':
+    with Connection(conn):
+        worker = Worker(map(Queue, listen))
+        worker.work()
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp) # why no URL prefix ?
