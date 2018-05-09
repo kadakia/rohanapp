@@ -11,11 +11,11 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler # StreamHandler
 import os
 from elasticsearch import Elasticsearch
-# from redis import Redis
-import redis
+from redis import Redis
 # import rq
 from rq import Worker, Queue, Connection
 import os
+import urlparse
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -42,12 +42,17 @@ def create_app(config_class=Config):
     # app.redis = Redis.from_url(app.config['REDIS_URL'])
     listen = ['high', 'default', 'low']
     REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost:6379')
-    conn = redis.from_url(REDIS_URL)
+    # conn = Redis.from_url(REDIS_URL)
+
+    urlparse.uses_netloc.append('redis')
+    url = urlparse.urlparse(REDIS_URL)
+    conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+
     app.task_queue = Queue('rohanapp-tasks', connection=conn)
 
     if __name__ == '__main__':
         with Connection(conn):
-            worker = Worker(map(app.task_queue, listen))
+            worker = Worker(map(Queue, listen))
             worker.work()
 
     from app.errors import bp as errors_bp
