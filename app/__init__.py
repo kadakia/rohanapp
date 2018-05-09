@@ -47,7 +47,7 @@ def create_app(config_class=Config):
 
     if __name__ == '__main__':
         with Connection(conn):
-            worker = Worker(map(Queue, listen))
+            worker = Worker(map(app.task_queue, listen))
             worker.work()
 
     from app.errors import bp as errors_bp
