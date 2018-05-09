@@ -46,9 +46,9 @@ def create_app(config_class=Config):
     app.task_queue = Queue('rohanapp-tasks', connection=conn)
 
     if __name__ == '__main__':
-    with Connection(conn):
-        worker = Worker(map(Queue, listen))
-        worker.work()
+        with Connection(conn):
+            worker = Worker(map(Queue, listen))
+            worker.work()
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp) # why no URL prefix ?
