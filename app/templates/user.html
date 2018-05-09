@@ -34,27 +34,23 @@
     <nav aria-label="...">
         <ul class="pager">
             <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}"> <!-- Is '#' for when the link is disabled? -->
-                    <span aria-hidden="true">&larr;</span> Newer posts <!-- &larr; is left arrow -->
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Older posts <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
                 <a href="{{ url_for('main.user', username=user.username) or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Newest
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}"> <!-- Is '#' for when the link is disabled? -->
+                    <span aria-hidden="true">&laquo;</span> <!-- &larr; is left arrow -->
                 </a>
             </li>
             <li class="next{% if not next_url %} disabled{% endif %}">
                 <a href="{{ last_url or '#' }}">
-                    Oldest <span aria-hidden="true">&rarr;</span>
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
