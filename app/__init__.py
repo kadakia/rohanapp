@@ -41,7 +41,7 @@ def create_app(config_class=Config):
         if app.config['ELASTICSEARCH_URL'] else None # None during unit testing
     # app.redis = Redis.from_url(app.config['REDIS_URL'])
     listen = ['high', 'default', 'low']
-    REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost:6379')
+    REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
     # conn = Redis.from_url(REDIS_URL)
 
     # urlparse.uses_netloc.append('redis')
