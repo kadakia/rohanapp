@@ -42,15 +42,16 @@ def create_app(config_class=Config):
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     # listen = ['high', 'default', 'low']
     # REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
-    # conn = Redis.from_url(REDIS_URL)
+    # app.conn = Redis.from_url(REDIS_URL)
 
     # urlparse.uses_netloc.append('redis')
     # url = urlparse(REDIS_URL)
-    # conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+    # app.conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+    print("HELLO HELLO")
     app.task_queue = rq.Queue('rohanapp-tasks', connection=app.redis)
 
     # if __name__ == '__main__':
-    #    with Connection(conn):
+    #    with Connection(app.conn):
     #        worker = Worker(map(Queue, listen))
     #        worker.work()
 
