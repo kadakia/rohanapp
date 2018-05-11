@@ -11,7 +11,7 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler # StreamHandler
 import os
 from elasticsearch import Elasticsearch
-import redis
+from redis import Redis
 import rq
 # from rq import Worker, Queue, Connection
 # import os
@@ -39,7 +39,7 @@ def create_app(config_class=Config):
     babel.init_app(app)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None # None during unit testing
-    app.redis = redis.from_url(app.config['REDIS_URL'])
+    app.redis = Redis.from_url(app.config['REDIS_URL'])
     # listen = ['high', 'default', 'low']
     # REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
     # app.conn = Redis.from_url(REDIS_URL)
@@ -47,7 +47,6 @@ def create_app(config_class=Config):
     # urlparse.uses_netloc.append('redis')
     # url = urlparse(REDIS_URL)
     # app.conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
-    print("HELLO HELLO")
     app.task_queue = rq.Queue('rohanapp-tasks', connection=app.redis)
 
     # if __name__ == '__main__':
