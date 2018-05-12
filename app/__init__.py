@@ -39,6 +39,7 @@ def create_app(config_class=Config):
     babel.init_app(app)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None # None during unit testing
+    print('THE REDIS_URL CONFIG VAR IS: ' + app.config['REDIS_URL'])
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     # listen = ['high', 'default', 'low']
     # REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
