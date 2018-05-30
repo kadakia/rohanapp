@@ -277,3 +277,4 @@ def export_posts():
 
 # set password criteria via validators
 # functionality for deleting posts
+# 'New Posts' divider based on current_user.last_seen

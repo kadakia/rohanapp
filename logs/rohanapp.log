@@ -82,3 +82,21 @@ smtplib.SMTPServerDisconnected: please run connect() first
 2018-05-04 20:51:45,852 INFO: RohanApp startup [in ./app/__init__.py:82]
 2018-05-06 22:26:35,966 INFO: RohanApp startup [in ./app/__init__.py:82]
 2018-05-11 14:02:07,415 INFO: RohanApp startup [in ./app/__init__.py:97]
+2018-05-19 20:06:50,142 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:98]
+2018-05-29 22:44:25,474 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:101]
+2018-05-29 22:47:16,949 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:101]
+2018-05-29 22:50:36,402 ERROR: Exception on /api/users [GET] [in /Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1615, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1630, in finalize_request
+    response = self.make_response(rv)
+  File "/Users/kadakia/anaconda3/lib/python3.6/site-packages/flask/app.py", line 1725, in make_response
+    raise ValueError('View function did not return a response')
+ValueError: View function did not return a response
+2018-05-29 22:50:55,081 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:101]
+2018-05-29 23:07:29,141 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:101]
+2018-05-29 23:09:36,070 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:101]
+2018-05-29 23:25:40,632 INFO: RohanApp startup [in /Users/kadakia/rohanapp/app/__init__.py:101]
