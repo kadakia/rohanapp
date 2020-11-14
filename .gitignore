@@ -1,5 +1,6 @@
 # Packages
 __pycache__
+.DS_Store
 
 # Translations
 *.mo
