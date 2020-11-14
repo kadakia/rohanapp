@@ -1,5 +1,5 @@
 from flask import current_app
-import json
+# import json
 import requests
 
 
@@ -28,4 +28,6 @@ def translate(text, source_language, dest_language):
         return 'Error: the translation service failed.'
 
     # utf-8-sig is Microsoft variant of utf-8
-    return json.loads(r.content.decode('utf-8-sig'))
+    # return json.loads(r.content.decode('utf-8-sig'))
+    response = r.json()
+    return response[0]['translations'][0]['text']
