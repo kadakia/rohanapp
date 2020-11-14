@@ -3,7 +3,7 @@ from flask import current_app
 import requests
 
 
-def translate(text, source_language, dest_language):
+def translate(text, dest_language):
     """
     """
     if 'MS_TRANSLATOR_KEY' not in current_app.config or not current_app.config['MS_TRANSLATOR_KEY']:
@@ -14,9 +14,15 @@ def translate(text, source_language, dest_language):
         'Content-Type': 'application/json'
     }
 
+    # r = requests.post(
+    #     'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from={}&to={}'.format(
+    #         source_language, dest_language
+    #     ), headers=auth, json=[{'Text': text}]
+    # )
+
     r = requests.post(
-        'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from={}&to={}'.format(
-            source_language, dest_language
+        'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to={}'.format(
+            dest_language
         ), headers=auth, json=[{'Text': text}]
     )
 
