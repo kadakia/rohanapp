@@ -50,7 +50,7 @@ class SearchableMixin(object):
 class PaginatedAPIMixin(object):
     @staticmethod
     def to_collection_dict(query, page, per_page, endpoint, **kwargs):
-        resources = query.paginate(page, per_page, False)
+        resources = query.paginate(page=page, per_page=per_page, error_out=False)
         data = {
             'items': [item.to_dict() for item in resources.items],
             '_meta': {
@@ -83,7 +83,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(256))
     posts = db.relationship('Post', backref='author', lazy='dynamic') # u.posts, p.author(s)
     about_me = db.Column(db.String(140))
     # last_seen = db.Column(db.String(60)) # default=datetime.utcnow
