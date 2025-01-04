@@ -17,6 +17,9 @@ import rq
 # import os
 # from urllib.parse import urlparse
 
+def get_locale():
+    return request.accept_languages.best_match(current_app.config['LANGUAGES'])
+
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
@@ -36,7 +39,7 @@ def create_app(config_class=Config):
     mail.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
-    babel.init_app(app)
+    babel.init_app(app, locale_selector=get_locale)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None # None during unit testing
     # print('THE REDIS_URL CONFIG VAR IS: ' + app.config['REDIS_URL'])
@@ -103,8 +106,3 @@ def create_app(config_class=Config):
     return app
 
 from app import models # models is common to all blueprints
-
-@babel.localeselector
-def get_locale():
-    return request.accept_languages.best_match(current_app.config['LANGUAGES'])
-    # return 'es'
