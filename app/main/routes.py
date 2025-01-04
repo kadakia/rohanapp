@@ -29,7 +29,7 @@ def index():
     # user = {'username': 'Rohan'}
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
-        page, current_app.config['POSTS_PER_PAGE'], False)
+        page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('main.index', page=posts.next_num) if posts.has_next else None
     # even though page isn't referenced in the URL directly, unlike <username>
     prev_url = url_for('main.index', page=posts.prev_num) if posts.has_prev else None
