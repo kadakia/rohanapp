@@ -7,7 +7,7 @@ from app.auth.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm
 from app.models import User
 from app.translate import translate
 from app.auth.email import send_password_reset_email
-from werkzeug.urls import url_parse
+from urllib.parse import urlsplit
 
 # VIEW functions pertaining to authentication
 
@@ -24,7 +24,7 @@ def login():
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '': # url_parse(next_page).netloc is nonempty if next_page is absolute URL
+        if not next_page or urlsplit(next_page).netloc != '': # urlsplit(next_page).netloc is nonempty if next_page is absolute URL
             next_page = url_for('main.index')
         return redirect(next_page)
     return render_template('auth/login.html', title = 'Sign In', form = form)
