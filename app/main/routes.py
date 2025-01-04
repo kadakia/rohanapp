@@ -48,7 +48,7 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
-        page, current_app.config['POSTS_PER_PAGE'], False)
+        page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('main.user', username=user.username, page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.user', username=user.username, page=posts.prev_num) if posts.has_prev else None
     if posts.total % current_app.config['POSTS_PER_PAGE'] == 0:
@@ -144,7 +144,7 @@ def unfollow(username):
 def explore():
     page = request.args.get('page', 1, type=int) # "page" as opposed to "next" in URL
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
-        page, current_app.config['POSTS_PER_PAGE'], False) # False means return empty if out of range, not 404
+        page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False) # False means return empty if out of range, not 404
     next_url = url_for('main.explore', page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.explore', page=posts.prev_num) if posts.has_prev else None
     if posts.total % current_app.config['POSTS_PER_PAGE'] == 0:
@@ -194,7 +194,7 @@ def messages():
         Message.recipient == current_user).group_by(Message.sender_id).subquery()
     messages = current_user.messages_received.join(sub, and_(Message.timestamp == sub.c.max_stamp)).order_by(
         Message.timestamp.desc()).paginate(
-            page, current_app.config['POSTS_PER_PAGE'], False)
+            page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('main.messages', page=messages.next_num) if messages.has_next else None
     prev_url = url_for('main.messages', page=messages.prev_num) if messages.has_prev else None
     if messages.total % current_app.config['POSTS_PER_PAGE'] == 0:
@@ -213,7 +213,7 @@ def sent_messages():
         Message.author == current_user).group_by(Message.recipient_id).subquery()
     sent_messages = current_user.messages_sent.join(sub, and_(Message.timestamp == sub.c.max_stamp)).order_by(
         Message.timestamp.desc()).paginate(
-            page, current_app.config['POSTS_PER_PAGE'], False)
+            page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('main.sent_messages', page=sent_messages.next_num) if sent_messages.has_next else None
     prev_url = url_for('main.sent_messages', page=sent_messages.prev_num) if sent_messages.has_prev else None
     if sent_messages.total % current_app.config['POSTS_PER_PAGE'] == 0:
@@ -241,7 +241,7 @@ def conversation(other):
         return redirect(url_for('main.conversation', other=other))
     page = request.args.get('page', 1, type=int)
     conversation = current_user.all_messages_with_other(user).paginate(
-        page, current_app.config['POSTS_PER_PAGE'], False)
+        page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('main.conversation', page=conversation.next_num, other=other) if conversation.has_next else None
     prev_url = url_for('main.conversation', page=conversation.prev_num, other=other) if conversation.has_prev else None
     if conversation.total % current_app.config['POSTS_PER_PAGE'] == 0:
